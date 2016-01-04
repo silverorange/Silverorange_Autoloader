@@ -1,8 +1,8 @@
 Silverorange_Autoloader
 =======================
 Autoloader for the silverorange package format. Silverorange packages use a
-different filename scheme than PSR-0 or PSR-4. This autoloader lets files be
-added dynamically during development while using our specific directory layout.
+different file layout than either PSR-0 or PSR-4. This autoloader lets files be
+added dynamically during development while using custom file layout.
 
 Usage
 -----
@@ -90,7 +90,7 @@ Packages should add a `files` autoloader rule to their `composer.json`. If the
 package has a lof of test cases, a separate `autoload-dev.php` file should be used.
 
 ```json
-autoload": {
+"autoload": {
   "files": [ "autoload.php" ]
 }
 ```
