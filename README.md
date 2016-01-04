@@ -6,16 +6,20 @@ added dynamically during development while using custom file layout.
 
 Usage
 -----
-Packages should depend on this package in their `composer.json` file:
+Packages should depend on this package in their `composer.json` file and add a
+`files` autoloader. If the package has a lot of tests, a separate `autoload-dev`
+should be used:
 
 ```json
 "require": {
   "silverorange/silverorange_autoloader": "*"
+},
+"autoload": {
+  "files": [ "autoload.php" ]
 }
 ```
 
-Pacakges should create an `autoload.php` that adds rules for the package. For
-example:
+The `autoload.php` file should contain rules for the package. For example:
 
 ```php
 <?php
@@ -84,13 +88,4 @@ Silverorange_Autoloader::addRule(
 );
 
 ?>
-```
-
-Packages should add a `files` autoloader rule to their `composer.json`. If the
-package has a lof of test cases, a separate `autoload-dev.php` file should be used.
-
-```json
-"autoload": {
-  "files": [ "autoload.php" ]
-}
 ```
