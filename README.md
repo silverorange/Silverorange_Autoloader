@@ -69,41 +69,7 @@ Silverorange_Autoloader::addRule(
       'Wrapper',
       'AccountLoginHistory',
       'AccountLoginSession',
-      'Account',
-      'Ad',
-      'AdReferrer',
-      'ApiCredential',
-      'Article',
-      'AttachmentCdnTask',
-      'Attachment',
-      'AttachmentSet',
-      'AudioMedia',
-      'BotrMediaEncoding',
-      'BotrMedia',
-      'BotrMediaPlayer',
-      'BotrMediaSet',
-      'CdnTask',
-      'Comment',
-      'ContactMessage',
-      'GadgetCache',
-      'GadgetInstance',
-      'GadgetInstanceSettingValue',
-      'ImageCdnTask',
-      'ImageDimension',
-      'Image',
-      'ImageSet',
-      'ImageType',
-      'InstanceConfigSetting',
-      'Instance',
-      'MediaCdnTask',
-      'MediaEncoding',
-      'Media',
-      'MediaSet',
-      'MediaType',
-      'SignOnToken',
-      'VideoImage',
-      'VideoMediaEncoding',
-      'VideoMedia',
+      ...
       'VideoMediaSet',
       'VideoScrubberImage',
     )
@@ -118,6 +84,7 @@ Silverorange_Autoloader::addRule(
 );
 
 ?>
+```
 
 Packages should add a `files` autoloader rule to their `composer.json`. If the
 package has a lof of test cases, a seaprate autoload-dev.php file should be used.
