@@ -1,6 +1,6 @@
 <?php
 
-use Silverorange\Autoloader;
+namespace Silverorange\Autoloader;
 
 Autoloader::register();
 

@@ -2,7 +2,7 @@
 
 /* vim: set noexpandtab tabstop=4 shiftwidth=4 foldmethod=marker: */
 
-use Silverorange\Autoloader;
+namespace Silverorange\Autoloader;
 
 /**
  * Automatically requires PHP files for undefined classes
