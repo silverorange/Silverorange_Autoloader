@@ -17,6 +17,7 @@
 	"autoload": {
 		"psr-0": {
 			"Silverorange" : ""
-		}
+		},
+		"files": [ "autoload.php" ]
 	}
 }

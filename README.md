@@ -9,12 +9,12 @@ Usage
 Packages should depend on this package in their `composer.json` file:
 
 ```json
-"requires": {
+"require": {
   "silverorange/silverorange_autoloader": "*"
 }
 ```
 
-Pacakges should create an `autoloader.php` that adds rules for the package. For
+Pacakges should create an `autoload.php` that adds rules for the package. For
 example:
 
 ```php
@@ -118,4 +118,14 @@ Silverorange_Autoloader::addRule(
 );
 
 ?>
+
+Packages should add a `files` autoloader rule to their `composer.json`. If the
+package has a lof of test cases, a seaprate autoload-dev.php file should be used.
+
+```json
+{
+  "autoload": {
+    "files": [ "autoload.php" ]
+  }
+}
 ```
