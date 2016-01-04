@@ -87,12 +87,10 @@ Silverorange_Autoloader::addRule(
 ```
 
 Packages should add a `files` autoloader rule to their `composer.json`. If the
-package has a lof of test cases, a seaprate autoload-dev.php file should be used.
+package has a lof of test cases, a separate `autoload-dev.php` file should be used.
 
 ```json
-{
-  "autoload": {
-    "files": [ "autoload.php" ]
-  }
+autoload": {
+  "files": [ "autoload.php" ]
 }
 ```
