@@ -26,7 +26,9 @@ The `autoload.php` file should contain rules for the package. For example:
 
 use Silverorange\Autoloader;
 
-Autoloader::addRule(
+$package = new Package('silverorange/site');
+
+$package->addRule(
   new Rule(
     'pages',
     'Site',
@@ -34,39 +36,12 @@ Autoloader::addRule(
   )
 );
 
-Autoloader::addRule(
-  new Rule(
-    'gadgets',
-    'Site',
-    'Gadget'
-  )
-);
+$package->addRule(new Rule('gadgets', 'Site', 'Gadget'));
+$package->addRule(new Rule('layouts', 'Site', 'Layout'));
+$package->addRule(new Rule('views', 'Site', 'View'));
+$package->addRule(new Rule('exceptions', 'Site', 'Exception'));
 
-Autoloader::addRule(
-  new Rule(
-    'layouts',
-    'Site',
-    'Layout'
-  )
-);
-
-Autoloader::addRule(
-  new Rule(
-    'views',
-    'Site',
-    'View'
-  )
-);
-
-Autoloader::addRule(
-  new Rule(
-    'exceptions',
-    'Site',
-    'Exception'
-  )
-);
-
-Autoloader::addRule(
+$package->addRule(
   new Rule(
     'dataobjects',
     'Site',
@@ -82,12 +57,9 @@ Autoloader::addRule(
   )
 );
 
-Autoloader::addRule(
-  new Rule(
-    '',
-    'Site'
-  )
-);
+$package->addRule(new Rule('', 'Site'));
+
+Autoloader::addPackage($package);
 
 ?>
 ```

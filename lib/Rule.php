@@ -76,7 +76,6 @@ class Rule
 	public function setDirectory($directory)
 	{
 		$this->directory = (string)$directory;
-
 		return $this;
 	}
 

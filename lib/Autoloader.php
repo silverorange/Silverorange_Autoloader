@@ -16,7 +16,7 @@ namespace Silverorange\Autoloader;
  * @package   Silverorange_Autoloader
  * @copyright 2006-2016 silverorange
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
- * @see       Rule
+ * @see       Package
  */
 class Autoloader
 {
@@ -25,36 +25,36 @@ class Autoloader
 	/**
 	 * @var arary
 	 */
-	private static $rules = array();
+	private static $packages = array();
 
 	// }}}
-	// {{{ public static function addRule()
+	// {{{ public static function addPackage()
 
 	/**
-	 * Adds an autoloader rule to the autoloader
+	 * Adds an autoloader package to the autoloader
 	 *
-	 * @param Rule $rule the autoloader rule to add.
+	 * @param Package $package the autoloader package to add.
 	 *
 	 * @return void
 	 */
-	public static function addRule(Rule $rule)
+	public static function addPackage(Package $package)
 	{
-		self::$rules[] = $rule;
+		self::$packages[] = $package;
 	}
 
 	// }}}
-	// {{{ public static function removeRule()
+	// {{{ public static function removePackage()
 
 	/**
-	 * Removes an autoloader rule from the autoloader
+	 * Removes an autoloader package from the autoloader
 	 *
-	 * @param Rule $rule the autoloader rule to remove.
+	 * @param Package $package the autoloader package to remove.
 	 *
 	 * @return void
 	 */
-	public static function removeRule(Rule $rule)
+	public static function removePackage(Package $package)
 	{
-		self::$rules = array_diff(self::$rules, array($rule));
+		self::$packages = array_diff(self::$packages, array($package));
 	}
 
 	// }}}
@@ -70,18 +70,22 @@ class Autoloader
 	 * @param string $class_name the name of the class to get the filename for.
 	 *
 	 * @return string the name of the file that likely contains the class
-	 *                 definition or null if no such filename could be
-	 *                 determined.
+	 *                definition or null if no such filename could be
+	 *                determined.
 	 */
 	public static function getFileFromClass($class_name)
 	{
 		$filename = null;
 
-		foreach (self::$rules as $rule) {
-			$result = $rule->apply($class_name);
-			if ($result !== null) {
-				$filename = $result;
-				break;
+		foreach (self::$packages as $package) {
+			foreach ($package->getRules() as $rule) {
+				$result = $rule->apply($class_name);
+				if ($result !== null) {
+					$filename = $package->getName() .
+						DIRECTORY_SEPARATOR . $result;
+
+					break 2;
+				}
 			}
 		}
 
@@ -103,12 +107,18 @@ class Autoloader
 	 */
 	public static function autoload($class_name)
 	{
+		static $vendor_dir = null;
+
+		if ($vendor_dir === null) {
+			$vendor_dir = dirname(dirname(dirname(__DIR__)));
+		}
+
 		$filename = self::getFileFromClass($class_name);
 
 		// We do not throw an exception here because is_callable() will break.
 
 		if ($filename !== null) {
-			require $filename;
+			require $vendor_dir . DIRECTORY_SEPARATOR . $filename;
 		}
 	}
 
