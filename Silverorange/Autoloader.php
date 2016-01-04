@@ -53,7 +53,7 @@ class Silverorange_Autoloader
 	 *
 	 * @return void
 	 */
-	public static function addRule(Silverorange_Autoloader_Rule $rule)
+	public static function removeRule(Silverorange_Autoloader_Rule $rule)
 	{
 		self::$rules = array_diff(self::$rules, array($rule));
 	}
