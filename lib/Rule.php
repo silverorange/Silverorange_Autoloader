@@ -2,6 +2,8 @@
 
 /* vim: set noexpandtab tabstop=4 shiftwidth=4 foldmethod=marker: */
 
+use Silverorange\Autoloader;
+
 /**
  * A class autoloader rule
  *
@@ -16,9 +18,9 @@
  * @package   Silverorange_Autoloader
  * @copyright 2006-2016 silverorange
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
- * @see       Silverorange_Autoloader
+ * @see       Autoloader
  */
-class Silverorange_Autoloader_Rule
+class Rule
 {
 	// {{{ protected properties
 
@@ -69,7 +71,7 @@ class Silverorange_Autoloader_Rule
 	/**
 	 * @param string $directory
 	 *
-	 * @return Silverorange_Autoloader_Rule
+	 * @return Rule
 	 */
 	public function setDirectory($directory)
 	{
@@ -84,7 +86,7 @@ class Silverorange_Autoloader_Rule
 	/**
 	 * @param string $starts_with
 	 *
-	 * @return Silverorange_Autoloader_Rule
+	 * @return Rule
 	 */
 	public function setStartsWith($starts_with)
 	{
@@ -100,7 +102,7 @@ class Silverorange_Autoloader_Rule
 	/**
 	 * @param array|string $ends_with optional.
 	 *
-	 * @return Silverorange_Autoloader_Rule
+	 * @return Rule
 	 */
 	public function setEndsWith($ends_with = null)
 	{

@@ -24,48 +24,50 @@ The `autoload.php` file should contain rules for the package. For example:
 ```php
 <?php
 
-Silverorange_Autoloader::addRule(
-  new Silverorange_Autoloader_Rule(
+use Silverorange\Autoloader;
+
+Autoloader::addRule(
+  new Rule(
     'pages',
     'Site',
     array('Page', 'Server', 'PageDecorator')
   )
 );
 
-Silverorange_Autoloader::addRule(
-  new Silverorange_Autoloader_Rule(
+Autoloader::addRule(
+  new Rule(
     'gadgets',
     'Site',
     'Gadget'
   )
 );
 
-Silverorange_Autoloader::addRule(
-  new Silverorange_Autoloader_Rule(
+Autoloader::addRule(
+  new Rule(
     'layouts',
     'Site',
     'Layout'
   )
 );
 
-Silverorange_Autoloader::addRule(
-  new Silverorange_Autoloader_Rule(
+Autoloader::addRule(
+  new Rule(
     'views',
     'Site',
     'View'
   )
 );
 
-Silverorange_Autoloader::addRule(
-  new Silverorange_Autoloader_Rule(
+Autoloader::addRule(
+  new Rule(
     'exceptions',
     'Site',
     'Exception'
   )
 );
 
-Silverorange_Autoloader::addRule(
-  new Silverorange_Autoloader_Rule(
+Autoloader::addRule(
+  new Rule(
     'dataobjects',
     'Site',
     array(
@@ -80,8 +82,8 @@ Silverorange_Autoloader::addRule(
   )
 );
 
-Silverorange_Autoloader::addRule(
-  new Silverorange_Autoloader_Rule(
+Autoloader::addRule(
+  new Rule(
     '',
     'Site'
   )

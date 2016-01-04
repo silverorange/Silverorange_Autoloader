@@ -1,5 +1,7 @@
 <?php
 
-Silverorange_Autoloader::register();
+use Silverorange\Autoloader;
+
+Autoloader::register();
 
 ?>

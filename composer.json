@@ -15,8 +15,8 @@
 		"php": ">=5.2.1"
 	},
 	"autoload": {
-		"psr-0": {
-			"Silverorange" : ""
+		"psr-4": {
+			"Silverorange\\Autoloader\\" : "lib/"
 		},
 		"files": [ "autoload.php" ]
 	}

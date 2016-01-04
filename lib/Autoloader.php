@@ -2,22 +2,23 @@
 
 /* vim: set noexpandtab tabstop=4 shiftwidth=4 foldmethod=marker: */
 
+use Silverorange\Autoloader;
+
 /**
  * Automatically requires PHP files for undefined classes
  *
  * This static class is responsible for resolving filenames from class names
- * of undefined classes. The PHP5 spl_autoload function is used to load files
+ * of undefined classes. The PHP 5 spl_autoload function is used to load files
  * based on rules defined in this static class.
  *
- * To add a new autoloader rule, use the
- * {@link Silverorange_Autoloader::addRule()} method.
+ * To add a new autoloader rule, use the {@link Autoloader::addRule()} method.
  *
  * @package   Silverorange_Autoloader
  * @copyright 2006-2016 silverorange
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
- * @see       Silverorange_Autoloader_Rule
+ * @see       Rule
  */
-class Silverorange_Autoloader
+class Autoloader
 {
 	// {{{ private properties
 
@@ -32,11 +33,11 @@ class Silverorange_Autoloader
 	/**
 	 * Adds an autoloader rule to the autoloader
 	 *
-	 * @param Silverorange_Autoloader_Rule $rule the autoloader rule to add.
+	 * @param Rule $rule the autoloader rule to add.
 	 *
 	 * @return void
 	 */
-	public static function addRule(Silverorange_Autoloader_Rule $rule)
+	public static function addRule(Rule $rule)
 	{
 		self::$rules[] = $rule;
 	}
@@ -47,11 +48,11 @@ class Silverorange_Autoloader
 	/**
 	 * Removes an autoloader rule from the autoloader
 	 *
-	 * @param Silverorange_Autoloader_Rule $rule the autoloader rule to remove.
+	 * @param Rule $rule the autoloader rule to remove.
 	 *
 	 * @return void
 	 */
-	public static function removeRule(Silverorange_Autoloader_Rule $rule)
+	public static function removeRule(Rule $rule)
 	{
 		self::$rules = array_diff(self::$rules, array($rule));
 	}
@@ -63,7 +64,7 @@ class Silverorange_Autoloader
 	 * Gets the filename of a class name
 	 *
 	 * This method uses the autoloader's list of rules to find an appropriate
-	 * filename for a class name. This is used by PHP5's __autoload() method
+	 * filename for a class name. This is used by PHP 5's __autoload() method
 	 * to find an appropriate file for undefined classes.
 	 *
 	 * @param string $class_name the name of the class to get the filename for.
@@ -115,8 +116,8 @@ class Silverorange_Autoloader
 	// {{{ public static function register()
 
 	/**
-	 * Registers {@link Silverorange_Autoloader::autoload()} as an autoload
-	 * function with the spl_autoload function
+	 * Registers {@link Autoloader::autoload()} as an autoload function with
+	 * the spl_autoload function
 	 *
 	 * See {@link http://ca.php.net/manual/en/function.spl-autoload-register.php
 	 * the documentation on SPL autoloading} for details.
