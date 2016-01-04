@@ -1,0 +1,22 @@
+{
+	"name": "silverorange/silverorange_autoloader",
+	"description": "Autoloader for silverorange package format.",
+	"type": "library",
+	"keywords": [ "silverorange", "autoloader" ],
+	"homepage": "https://github.com/silverorange/Silverorange_Autoloader",
+	"license": "LGPL-2.1",
+	"authors": [
+		{
+			"name": "Michael Gauthier",
+			"email": "mike@silverorange.com"
+		}
+	],
+	"require": {
+		"php": ">=5.2.1"
+	},
+	"autoload": {
+		"psr-0": {
+			"Silverorange" : ""
+		}
+	}
+}
