@@ -67,19 +67,19 @@ class Autoloader
 	 * filename for a class name. This is used by PHP 5's __autoload() method
 	 * to find an appropriate file for undefined classes.
 	 *
-	 * @param string $class_name the name of the class to get the filename for.
+	 * @param string $className the name of the class to get the filename for.
 	 *
 	 * @return string the name of the file that likely contains the class
 	 *                definition or null if no such filename could be
 	 *                determined.
 	 */
-	public static function getFileFromClass($class_name)
+	public static function getFileFromClass($className)
 	{
 		$filename = null;
 
 		foreach (self::$packages as $package) {
 			foreach ($package->getRules() as $rule) {
-				$result = $rule->apply($class_name);
+				$result = $rule->apply($className);
 				if ($result !== null) {
 					$filename = $package->getName() .
 						DIRECTORY_SEPARATOR . $result;
@@ -101,24 +101,24 @@ class Autoloader
 	 *
 	 * If an appropriate file exists for the given class name, it is required.
 	 *
-	 * @param string $class_name the name of the undefined class.
+	 * @param string $className the name of the undefined class.
 	 *
 	 * @return void
 	 */
-	public static function autoload($class_name)
+	public static function autoload($className)
 	{
-		static $vendor_dir = null;
+		static $vendorDir = null;
 
-		if ($vendor_dir === null) {
-			$vendor_dir = dirname(dirname(dirname(__DIR__)));
+		if ($vendorDir === null) {
+			$vendorDir = dirname(dirname(dirname(__DIR__)));
 		}
 
-		$filename = self::getFileFromClass($class_name);
+		$filename = self::getFileFromClass($className);
 
 		// We do not throw an exception here because is_callable() will break.
 
 		if ($filename !== null) {
-			require $vendor_dir . DIRECTORY_SEPARATOR . $filename;
+			require $vendorDir . DIRECTORY_SEPARATOR . $filename;
 		}
 	}
 

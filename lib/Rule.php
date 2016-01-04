@@ -13,7 +13,7 @@ namespace Silverorange\Autoloader;
  *
  * If a class name matches a rule, the filename is built as:
  *
- *  <start-prefix>/<directory>/<class_name>.php
+ *  <start-prefix>/<directory>/<class-name>.php
  *
  * @package   Silverorange_Autoloader
  * @copyright 2006-2016 silverorange
@@ -32,17 +32,17 @@ class Rule
 	/**
 	 * @var string
 	 */
-	protected $starts_with = '';
+	protected $startsWith = '';
 
 	/**
 	 * @var integer
 	 */
-	protected $start_length = 0;
+	protected $startLength = 0;
 
 	/**
 	 * @var array
 	 */
-	protected $ends_with = array();
+	protected $endsWith = array();
 
 	// }}}
 	// {{{ public function __construct()
@@ -50,19 +50,20 @@ class Rule
 	/**
 	 * Creates a new class autoloader rule
 	 *
-	 * @param string       $directory   the subdirectory to use for matched
-	 *                                  classes. Pass an empty string to not
-	 *                                  use a subdirectory.
-	 * @param string       $starts_with the class name prefix this rule matches on.
-	 * @param string|array $ends_with   optional. The class name suffixes this
-	 *                                  rule matches on. If not specified, no
-	 *                                  suffix matching is performed.
+	 * @param string       $directory  the subdirectory to use for matched
+	 *                                 classes. Pass an empty string to not
+	 *                                 use a subdirectory.
+	 * @param string       $startsWith the class name prefix this rule matches
+	 *                                 on.
+	 * @param string|array $endsWith   optional. The class name suffixes this
+	 *                                 rule matches on. If not specified, no
+	 *                                 suffix matching is performed.
 	 */
-	public function __construct($directory, $starts_with, $ends_with = null)
+	public function __construct($directory, $startsWith, $endsWith = null)
 	{
 		$this->setDirectory($directory);
-		$this->setStartsWith($starts_with);
-		$this->setEndsWith($ends_with);
+		$this->setStartsWith($startsWith);
+		$this->setEndsWith($endsWith);
 	}
 
 	// }}}
@@ -83,14 +84,14 @@ class Rule
 	// {{{ public function setStartsWith()
 
 	/**
-	 * @param string $starts_with
+	 * @param string $startsWith
 	 *
 	 * @return Rule
 	 */
-	public function setStartsWith($starts_with)
+	public function setStartsWith($startsWith)
 	{
-		$this->starts_with = (string)$starts_with;
-		$this->start_length = strlen($starts_with);
+		$this->startsWith = (string)$startsWith;
+		$this->startLength = strlen($startsWith);
 
 		return $this;
 	}
@@ -99,22 +100,22 @@ class Rule
 	// {{{ public function setEndsWith()
 
 	/**
-	 * @param array|string $ends_with optional.
+	 * @param array|string $endsWith optional.
 	 *
 	 * @return Rule
 	 */
-	public function setEndsWith($ends_with = null)
+	public function setEndsWith($endsWith = null)
 	{
-		if ($ends_with === null) {
-			$this->ends_with = array();
-		} elseif (!is_array($ends_with))  {
-			$this->ends_with = array(
-				(string)$ends_with => strlen($ends_with)
+		if ($endsWith === null) {
+			$this->endsWith = array();
+		} elseif (!is_array($endsWith))  {
+			$this->endsWith = array(
+				(string)$endsWith => strlen($endsWith)
 			);
 		} else {
-			foreach ($ends_with as $value) {
+			foreach ($endsWith as $value) {
 				$value = (string)$value;
-				$this->ends_with[$value] = strlen($value);
+				$this->endsWith[$value] = strlen($value);
 			}
 		}
 
@@ -127,27 +128,27 @@ class Rule
 	/**
 	 * Checks if this rule applies to a class name
 	 *
-	 * @param string $class_name the name of the class to check.
+	 * @param string $className the name of the class to check.
 	 *
 	 * @return boolean true if this rule matches the class name, otherwise
 	 *                 false.
 	 */
-	public function matches($class_name)
+	public function matches($className)
 	{
 		// simple prefix match
 		$matches = (strncmp(
-			$this->starts_with,
-			$class_name,
-			$this->start_length
+			$this->startsWith,
+			$className,
+			$this->startLength
 		) === 0);
 
 		// also check suffixes if specified
-		if ($matches && count($this->ends_with) > 0) {
+		if ($matches && count($this->endsWith) > 0) {
 			$matches = false;
-			foreach ($this->ends_with as $ends_with => $length) {
+			foreach ($this->endsWith as $endsWith => $length) {
 				$matches = (
-					strlen($class_name) >= $length &&
-					substr($class_name, -$length) == $ends_with
+					strlen($className) >= $length &&
+					substr($className, -$length) == $endsWith
 				);
 				if ($matches) {
 					break;
@@ -164,24 +165,24 @@ class Rule
 	/**
 	 * Applies this autoloader rule to a class name
 	 *
-	 * @param string $class_name the name of the class to apply this rule to.
+	 * @param string $className the name of the class to apply this rule to.
 	 *
 	 * @return string the filename the class name maps to if the filename
 	 *                matches this rule, or null if the filename does not
 	 *                match this rule.
 	 */
-	public function apply($class_name)
+	public function apply($className)
 	{
 		$filename = null;
 
-		if ($this->matches($class_name)) {
-			$filename = $this->starts_with . '/';
+		if ($this->matches($className)) {
+			$filename = $this->startsWith . DIRECTORY_SEPARATOR;
 
 			if ($this->directory != '') {
-				$filename .= $this->directory . '/';
+				$filename .= $this->directory . DIRECTORY_SEPARATOR;
 			}
 
-			$filename .= $class_name . '.php';
+			$filename .= $className . '.php';
 		}
 
 		return $filename;
