@@ -23,9 +23,14 @@ class Autoloader
 	// {{{ private properties
 
 	/**
-	 * @var arary
+	 * @var array
 	 */
 	private static $packages = array();
+
+	/**
+	 * @var Package
+	 */
+	private static $final_package;
 
 	// }}}
 	// {{{ public static function addPackage()
@@ -58,6 +63,51 @@ class Autoloader
 	}
 
 	// }}}
+	// {{{ public static function addFinalPackage()
+
+	/**
+	 * Sets an autoloader package as the last package to check against
+	 *
+	 * @param Package $package the autoloader package to add.
+	 *
+	 * @return void
+	 */
+	public static function setFinalPackage(Package $package)
+	{
+		self::$final_package = $package;
+	}
+
+	// }}}
+	// {{{ public static function removeFinalPackage()
+
+	/**
+	 * Removes the final autoloader package from the autoloader
+	 *
+	 * @return void
+	 */
+	public static function removeFinalPackage()
+	{
+		self::$final_package = null;
+	}
+
+	// }}}
+	// {{{ public static function getPackages()
+
+	/**
+	 * @return array
+	 */
+	public static function getPackages()
+	{
+		$packages = self::$packages;
+
+		if (self::$final_package instanceof Package) {
+			$packages[] = self::$final_package;
+		}
+
+		return $packages;
+	}
+
+	// }}}
 	// {{{ public static function getFileFromClass()
 
 	/**
@@ -77,11 +127,11 @@ class Autoloader
 	{
 		$filename = null;
 
-		foreach (self::$packages as $package) {
+		foreach (self::getPackages() as $package) {
 			foreach ($package->getRules() as $rule) {
 				$result = $rule->apply($className);
 				if ($result !== null) {
-					$filename = $package->getName() .
+					$filename = $package->getDirectory() .
 						DIRECTORY_SEPARATOR . $result;
 
 					break 2;
@@ -107,18 +157,12 @@ class Autoloader
 	 */
 	public static function autoload($className)
 	{
-		static $vendorDir = null;
-
-		if ($vendorDir === null) {
-			$vendorDir = dirname(dirname(dirname(__DIR__)));
-		}
-
 		$filename = self::getFileFromClass($className);
 
 		// We do not throw an exception here because is_callable() will break.
 
 		if ($filename !== null) {
-			require $vendorDir . DIRECTORY_SEPARATOR . $filename;
+			require $filename;
 		}
 	}
 

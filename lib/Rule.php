@@ -13,7 +13,7 @@ namespace Silverorange\Autoloader;
  *
  * If a class name matches a rule, the filename is built as:
  *
- *  <start-prefix>/<directory>/<class-name>.php
+ *  [<start-prefix>/]<directory>/<class-name>.php
  *
  * @package   Silverorange_Autoloader
  * @copyright 2006-2016 silverorange
@@ -176,7 +176,9 @@ class Rule
 		$filename = null;
 
 		if ($this->matches($className)) {
-			$filename = $this->startsWith . DIRECTORY_SEPARATOR;
+			if ($this->startsWith != '') {
+				$filename .= $this->startsWith . DIRECTORY_SEPARATOR;
+			}
 
 			if ($this->directory != '') {
 				$filename .= $this->directory . DIRECTORY_SEPARATOR;

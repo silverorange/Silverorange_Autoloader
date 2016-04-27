@@ -26,7 +26,7 @@ The `autoload.php` file should contain rules for the package. For example:
 
 use Silverorange\Autoloader;
 
-$package = new Package('silverorange/site');
+$package = new Package(__DIR__);
 
 $package->addRule(
   new Rule(
