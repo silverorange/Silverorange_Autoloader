@@ -33,37 +33,36 @@ class Package
 	/**
 	 * Creates a new autoloader package
 	 *
-	 * @param string $name the name of the package. Use the composer package
-	 *                     name.
+	 * @param string $directory the root directory of the package.
 	 */
-	public function __construct($name)
+	public function __construct($directory)
 	{
-		$this->setName($name);
+		$this->setDirectory($directory);
 	}
 
 	// }}}
-	// {{{ public function setName()
+	// {{{ public function setDirectory()
 
 	/**
-	 * @param string $name
+	 * @param string $directory
 	 *
 	 * @return Package
 	 */
-	public function setName($name)
+	public function setDirectory($directory)
 	{
-		$this->name = (string)$name;
+		$this->directory = (string)$directory;
 		return $this;
 	}
 
 	// }}}
-	// {{{ public function getName()
+	// {{{ public function getDirectory()
 
 	/**
 	 * @return string
 	 */
-	public function getName()
+	public function getDirectory()
 	{
-		return $this->name;
+		return $this->directory;
 	}
 
 	// }}}
